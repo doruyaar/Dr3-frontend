@@ -3,6 +3,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Star, Send, Loader2, User, Copy, Mic, Check, RefreshCw } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
+const apiBaseUrl = 'http://localhost:5000';
+
 interface Message {
   id: string;
   content: string;
@@ -238,7 +240,7 @@ function App() {
     try {
       const conversationHistory = formatConversationHistory([...messages, userMessage]);
 
-      const response = await fetch('http://localhost:5000/api/chat', {
+      const response = await fetch(`${apiBaseUrl}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
