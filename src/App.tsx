@@ -32,6 +32,10 @@ function App() {
   const silenceTimeoutRef = useRef<any>(null);
   const lastSoundTimestampRef = useRef<number>(Date.now());
 
+  // New state for header visibility
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const scrollTimeoutRef = useRef<any>(null);
+
   useEffect(() => {
     const isSupported = 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
     setIsSpeechSupported(isSupported);
@@ -169,6 +173,9 @@ function App() {
   useEffect(() => {
     return () => {
       stopRecording();
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -289,9 +296,31 @@ function App() {
     }).format(date);
   };
 
+  // Handle scroll event to hide header on scroll and show when scrolling stops
+  const handleScroll = () => {
+    // Hide header immediately on scroll
+    if (headerVisible) {
+      setHeaderVisible(false);
+    }
+    // Clear any existing timeout
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    // Set a timeout to show header when scrolling stops
+    scrollTimeoutRef.current = setTimeout(() => {
+      setHeaderVisible(true);
+    }, 300);
+  };
+
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-indigo-900 via-purple-900 to-slate-900">
-      <header className="fixed top-0 left-0 right-0 z-50 h-16 p-4 bg-black/20 backdrop-blur-sm border-b border-white/10 flex items-center justify-between">
+      <header
+        className="fixed top-0 left-0 right-0 z-50 h-16 p-4 bg-black/20 backdrop-blur-sm border-b border-white/10 flex items-center justify-between"
+        style={{
+          transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
+          transition: 'transform 0.3s ease',
+        }}
+      >
         <div className="flex items-center space-x-2">
           <Star className="w-8 h-8 text-purple-300" />
           <h1 className="text-2xl font-bold text-white">Dr3m</h1>
@@ -307,6 +336,7 @@ function App() {
       </header>
 
       <main
+        onScroll={handleScroll}
         className="pt-32 md:pt-20 pb-4 px-4 space-y-6 overscroll-contain overflow-y-auto"
         style={{
           height: 'calc(100vh - 4rem)',
