@@ -294,7 +294,7 @@ function App() {
       <header className="fixed top-0 left-0 right-0 z-50 h-16 p-4 bg-black/20 backdrop-blur-sm border-b border-white/10 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Star className="w-8 h-8 text-purple-300" />
-          <h1 className="text-2xl font-bold text-white">Dr3.xyz</h1>
+          <h1 className="text-2xl font-bold text-white">Dr3m</h1>
         </div>
         <button
           onClick={resetConversation}
@@ -315,7 +315,7 @@ function App() {
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full text-center space-y-4 text-white/80">
             <Star className="w-16 h-16 text-purple-400" />
-            <h2 className="text-2xl font-semibold">Welcome to Dr3.xyz</h2>
+            <h2 className="text-2xl font-semibold">Welcome to Dr3m</h2>
             <p className="max-w-md">
               Share your dreams, and I'll help you understand their deeper meaning and symbolism.
             </p>
