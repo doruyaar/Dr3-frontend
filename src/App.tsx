@@ -41,7 +41,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.removeItem('conversation');
+    localStorage.removeItem("conversation");
   }, []);
 
   useEffect(() => {
