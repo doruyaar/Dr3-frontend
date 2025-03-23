@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Star, Send, Loader2, User, Copy, Mic, Check, RefreshCw } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
-const apiBaseUrl = 'http://localhost:5000';
+const apiBaseUrl = 'https://dr3-beckend.vercel.app';
 
 interface Message {
   id: string;
